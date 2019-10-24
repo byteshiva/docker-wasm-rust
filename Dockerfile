@@ -41,8 +41,14 @@ ENV USER=root
 RUN sed -i "s:application/zip                       zip;:application/zip                       zip;\\n application/wasm                       wasm;:g" /etc/nginx/mime.types
 
 # Copy the entrypoint file over
-COPY docker-entrypoint.sh /usr/local/bin/
+COPY docker-entrypoint.sh /usr/local/bin
 COPY wasm-create-project /usr/local/bin
+
+# Fix script permissions
+RUN chmod 777 /usr/local/bin/docker-entrypoint.sh && \
+chmod 777 /usr/local/bin/wasm-create-project && \
+ln -s /usr/local/bin/docker-entrypoint.sh / && \
+ln -s /usr/local/bin/wasm-create-project /
 
 # Set the entrypoint
 ENTRYPOINT ["docker-entrypoint.sh"]
