@@ -10,10 +10,11 @@ Technologies installed right out of the box
 * wasm-pack
 * npm
 * yarn
-
-Still in the process of adding to the base image
-
 * nginx
+
+Technologies / alternate tagged containers planned for the future
+
+* MySQL
 
 # Usage
 
@@ -31,9 +32,7 @@ services:
     ports:
       - 8080:80
     volumes:
-      - ./project:/root/project
-    environment:
-      - PROJECT_NAME=wasm-game-of-life
+      - ./project:/var/www/html/project
 volumes:
   rust:
 ```

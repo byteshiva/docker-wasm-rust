@@ -28,12 +28,21 @@ ENV PATH="/root/.cargo/bin:${PATH}"
 # Install wasm-pack and cargo-generate
 RUN cargo install wasm-pack && cargo install cargo-generate
 
+# Install nginx
+RUN apt-get install nginx -y
+
+# Install Git
+RUN apt-get install git -y
+
 # Add the root user to $USER so cargo can find it for cargo generate
 ENV USER=root
-ENV PROJECT_NAME='wasm-project'
+
+# Add wasm to the availbe mime types
+RUN sed -i "s:application/zip                       zip;:application/zip                       zip;\\n application/wasm                       wasm;:g" /etc/nginx/mime.types
 
 # Copy the entrypoint file over
 COPY docker-entrypoint.sh /usr/local/bin/
+COPY wasm-create-project /usr/local/bin
 
 # Set the entrypoint
 ENTRYPOINT ["docker-entrypoint.sh"]
