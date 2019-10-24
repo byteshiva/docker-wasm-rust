@@ -1,2 +1,11 @@
-FROM ubuntu:19.10
-MAINTAINER btassone <brandontassone@gmail.com>
+version: '3.7'
+services:
+  rust:
+    image: btassone/wasm-rust:latest
+    ports:
+      - 8080:80
+    volumes:
+      - ./projects:/root/projects
+    command: tail -f /dev/null
+volumes:
+  rust:
