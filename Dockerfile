@@ -1,9 +1,5 @@
 FROM ubuntu:latest
-
 MAINTAINER btassone <brandontassone@gmail.com>
-
-# Copy the entrypoint file over
-COPY docker-entrypoint.sh /usr/local/bin/
 
 # Update and upgrade before everything
 RUN apt-get update && \
@@ -31,6 +27,13 @@ ENV PATH="/root/.cargo/bin:${PATH}"
 
 # Install wasm-pack and cargo-generate
 RUN cargo install wasm-pack && cargo install cargo-generate
+
+# Add the root user to $USER so cargo can find it for cargo generate
+ENV USER=root
+ENV PROJECT_NAME='wasm-project'
+
+# Copy the entrypoint file over
+COPY docker-entrypoint.sh /usr/local/bin/
 
 # Set the entrypoint
 ENTRYPOINT ["docker-entrypoint.sh"]
