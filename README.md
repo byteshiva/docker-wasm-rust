@@ -1,6 +1,12 @@
-# Docker WASM Rust
+# docker-wasm-rust
 
-Docker container for developing WASM-Rust applications.
+### Description
+
+Docker container for developing wasm-rust web applications. It's main goal is to
+simplify the setup process of rust and wasm-rust project environment on a per
+project basis.
+
+### Technologies
 
 Technologies installed right out of the box
 
@@ -16,13 +22,15 @@ Technologies / alternate tagged containers planned for the future
 
 * MySQL
 
-# Usage
+### Usage
+1. Create a docker-compose.yml file (example below)
+2. docker-compose up -d
+3. docker exec -it [docker pid goes here] /bin/bash
+5. wasm-create-project [project name here]
+6. Open your newly created project in your favorite ide from the project volume
+and get coding
 
 ### Docker Compose
-
-1. Create a docker-compose.yml file (example below)
-
-**Example: docker-compose.yml**
 
 ```yml
 version: '3.7'
@@ -37,12 +45,7 @@ volumes:
   rust:
 ```
 
-2. docker-compose up -d
-3. docker exec -it [docker pid goes here] /bin/bash
-4. cd /root/project
-5. cargo build / run
-
-# Next Steps
+### Next Steps
 
 If you are new to WASM Rust and are looking for further steps to get started
 please take a look at:
