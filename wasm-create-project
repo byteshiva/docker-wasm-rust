@@ -1,0 +1,22 @@
+#!/bin/bash
+set -e
+
+PROJECT_NAME=${1}
+PROJECT_DIR="/var/www/html/project/${PROJECT_NAME}"
+
+# Generate template project with PROJECT_NAME env variable
+cd /var/www/html/project && \
+cargo generate --git https://github.com/rustwasm/wasm-pack-template -n ${PROJECT_NAME} -f
+
+# Change the root directory to the project in nginx
+sed -i "s:root\ /var/www/html:root\ $PROJECT_DIR/www/dist:g" /etc/nginx/sites-enabled/default
+
+# Kick off an initial build and init the npm WASM side
+cd "/var/www/html/project/$PROJECT_NAME" && \
+wasm-pack build && \
+npm init wasm-app www && \
+cd www && npm install && \
+npm run build
+
+# Restart nginx
+service nginx restart
