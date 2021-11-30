@@ -13,7 +13,7 @@ RUN apt-get install curl -y && \
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
 # Add the node PPA
-RUN curl -sL https://deb.nodesource.com/setup_12.x | sh
+RUN curl -sL https://deb.nodesource.com/setup_17.x | sh
 
 # Add the Yarn PPA
 RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
